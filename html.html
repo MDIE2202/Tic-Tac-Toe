@@ -9,17 +9,64 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div class = "grid-container">
-        <div class = 'grid-item' id = 'box0'>0</div>
-        <div class = 'grid-item' id = 'box1'>0</div>
-        <div class = 'grid-item' id = 'box2'>0</div>
-        <div class = 'grid-item' id = 'box3'>0</div>
-        <div class = 'grid-item' id = 'box4'>0</div>
-        <div class = 'grid-item' id = 'box5'>0</div>
-        <div class = 'grid-item' id = 'box6'>0</div>
-        <div class = 'grid-item' id = 'box7'>0</div>
-        <div class = 'grid-item' id = 'box8'>0</div>
+    <div class = 'main_container'>
+        <div class = 'banner' id = banner>
+            <div class = 'player'>
+                <form id = player onSubmit = "username1(); return false">
+                    <label>Player 1</label>
+                    <input type = 'text' id = 'user1'>
+
+                </form>
+            </div>
+
+            <div>
+                <button id = 'start' type = 'submit' form = 'player' value = 'submit'> START </button>
+            </div>
+
+            <div class = 'player'>
+                <form id = player>
+                    <label>Player 2</label>
+                    <input type = 'text' id = 'user2'>
+
+                </form>
+            </div>
+            
+        </div>
+        
+        </div>
+
+            <div id = reporter>
+                    Hello
+            </div>
+
+        <div class = 'center'>
+
+            <div class = 'side_banner'>
+
+            </div>
+            
+            <div class = "grid-container">
+                <div class = 'grid-item' id = 'box0'>0</div>
+                <div class = 'grid-item' id = 'box1'>0</div>
+                <div class = 'grid-item' id = 'box2'>0</div>
+                <div class = 'grid-item' id = 'box3'>0</div>
+                <div class = 'grid-item' id = 'box4'>0</div>
+                <div class = 'grid-item' id = 'box5'>0</div>
+                <div class = 'grid-item' id = 'box6'>0</div>
+                <div class = 'grid-item' id = 'box7'>0</div>
+                <div class = 'grid-item' id = 'box8'>0</div>
+            </div>
+
+            <div class = 'side_banner'>
+
+            </div>
+        </div>
+        <div class = 'footer'>
+            <button class = 'reset' id = 'reset'> Reset </button>
+
+        </div>
     </div>
+
 
     
 </body>

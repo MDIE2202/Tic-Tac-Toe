@@ -2,14 +2,18 @@ const gameboard = (() => {
 	let state = [0,0,0,0,0,0,0,0,0]
 
     const reset = () => {
-        let state = [0,0,0,0,0,0,0,0,0]
         for (let i = 0; i < 9; i++){
             let id = 'box' + i;
             let box = document.getElementById(id);
+            box.setAttribute('class', 'grid-item')
             box.innerHTML = 0
-
-            
+            state[i] = 0
         }
+
+        let finish = document.getElementById('reporter')
+        finish.innerHTML = ''
+        let restart = document.getElementById('start')
+        restart.classList.remove('hide2')
         return state
 
     }
@@ -17,7 +21,6 @@ const gameboard = (() => {
     const play = (player, position) => {
         if(state[position] == 0){
             state[position] = player
-            console.log(state)
             return state;             
         }
         else{
@@ -36,7 +39,6 @@ const gameboard = (() => {
                     count = count
                 }
             }
-        console.log('counter:', count)
         return count;
         };  
 
@@ -102,27 +104,35 @@ const player = (name, symbol) => {
       
 };
 
-const statereader = (position) => {
+const statereader = (position, player1, player2) => {
 
     const count = gameboard.process()
-
     
     if(count % 2 == 0){
             let active_player = player2
-            console.log(active_player)
             state = gameboard.play(active_player.getSymbol, position)
 
             for (let i = 0; i < 9; i++){
                 let id = 'box' + i;
                 let box = document.getElementById(id);
-                box.innerHTML = state[i]
+                if (state[i] == 2){
+                    box.innerHTML = '<img src="./images/circle.svg" width =100% height = 100% display = contain>'
+                }
             }
 
             win = gameboard.win()
             console.log(win)
             if (win == 1){
-                gameboard.reset()
-                let finish = prompt(active_player.getName + ' wins!')
+                let finish = document.getElementById('reporter')
+                text = '<h1>'+active_player.getName + ' WINS!'+'</h1>';
+                finish.innerHTML = text;
+
+                for (let i = 0; i < 9; i++){
+                    let id = 'box' + i;
+                    let box = document.getElementById(id);
+                    box.setAttribute('class', 'grid-item2')
+                }
+
             }
                 
                 
@@ -133,19 +143,29 @@ const statereader = (position) => {
         }
     else{
             let active_player = player1
-            console.log(active_player)
             state = gameboard.play(active_player.getSymbol, position)
             
             for (let i = 0; i < 9; i++){
                 let id = 'box' + i;
                 let box = document.getElementById(id);
-                box.innerHTML = state[i]
+                if (state[i] == 1){
+                    box.innerHTML = '<img src="./images/circlecross.svg">'
+                }
+
             }
 
             win = gameboard.win()
             if (win == 1){
-                gameboard.reset()
-                prompt(active_player.getName + ' wins!')
+                let finish = document.getElementById('reporter')
+                text = '<h1>'+active_player.getName + ' WINS!'+'</h1>';
+                finish.innerHTML = text;
+                
+                for (let i = 0; i < 9; i++){
+                    let id = 'box' + i;
+                    let box = document.getElementById(id);
+                    box.setAttribute('class', 'grid-item2')
+                
+                }
             }
             else{
                 win = win
@@ -157,16 +177,34 @@ const statereader = (position) => {
     
 };
 
+const username1 = () =>{
+    let user1 = document.getElementById("user1").value;
+    let user2 = document.getElementById("user2").value;
+    const player1 = player(user1, 1)
+    const player2 = player(user2, 2)
+    console.log(player1)
+    console.log(player2)
 
-const player1 = player('henk', 1)
-const player2 = player('Bob', 2)
+    let report = document.getElementById('reporter')
+    report.innerHTML = player1.getName + ' VS ' + player2.getName;
 
-for (let i = 0; i < 9; i++){
-    let id = 'box' + i;
-    let box = document.getElementById(id);
-    box.addEventListener('click', function(){statereader(i)})
-
+    for (let i = 0; i < 9; i++){
+        let id = 'box' + i;
+        let box = document.getElementById(id);
+        box.addEventListener('click', function(){statereader(i, player1, player2)})
     }
+
+    let button_exit = document.getElementById("start");
+    button_exit.setAttribute('class', 'hide2')
+
+}
+
+
+
+
+
+button = document.getElementById('reset')
+button.addEventListener('click', function(){gameboard.reset()})
 
 
 
